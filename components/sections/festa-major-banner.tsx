@@ -57,12 +57,6 @@ export function FestaMajorBanner() {
                 </dd>
                 <span>edició</span>
               </div>
-              <div className="flex items-baseline gap-2">
-                <dt className="sr-only">Entrada</dt>
-                <dd className="font-display italic text-xl normal-case tracking-normal text-rust leading-none">
-                  Gratuït
-                </dd>
-              </div>
             </dl>
 
             <Link
