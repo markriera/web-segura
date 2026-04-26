@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { SmoothScrollProvider } from "@/components/animations/smooth-scroll-provider";
+import { Anton, Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import { SiteChrome } from "@/components/layout/site-chrome";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -24,8 +22,17 @@ const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains",
 });
 
+const anton = Anton({
+  subsets: ["latin"],
+  display: "swap",
+  weight: "400",
+  variable: "--font-anton",
+});
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://segura.cat"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://segura.cat",
+  ),
   title: {
     default: "Segura · Llogaret de la Conca de Barberà",
     template: "%s · Segura",
@@ -36,6 +43,18 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ca_ES",
     siteName: "Segura",
+    images: [
+      {
+        url: "/og/home.jpg",
+        width: 1200,
+        height: 630,
+        alt: "La web de Segura · Conca de Barberà",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og/home.jpg"],
   },
 };
 
@@ -47,17 +66,15 @@ export default function RootLayout({
   return (
     <html
       lang="ca"
-      className={`${fraunces.variable} ${inter.variable} ${jetbrains.variable}`}
+      className={`${fraunces.variable} ${inter.variable} ${jetbrains.variable} ${anton.variable}`}
     >
       <body className="bg-bone text-ink antialiased">
         <a href="#main" className="skip-link">
           Salta al contingut principal
         </a>
-        <SmoothScrollProvider>
-          <Header />
+        <SiteChrome>
           <main id="main">{children}</main>
-          <Footer />
-        </SmoothScrollProvider>
+        </SiteChrome>
       </body>
     </html>
   );

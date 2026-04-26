@@ -1,6 +1,5 @@
 import "server-only";
-import { promises as fs } from "node:fs";
-import path from "node:path";
+import { supabaseAdmin } from "@/lib/supabase";
 import {
   pobleSchema,
   estacioSchema,
@@ -14,33 +13,21 @@ import {
 } from "@/lib/schemas";
 import type { z } from "zod";
 
-const ROOT = path.join(process.cwd(), "content", "ca");
-
-async function readFileJSON<T>(file: string): Promise<T> {
-  const raw = await fs.readFile(path.join(ROOT, `${file}.json`), "utf-8");
-  return JSON.parse(raw) as T;
-}
-
-async function writeFileJSON(file: string, data: unknown): Promise<void> {
-  const fullPath = path.join(ROOT, `${file}.json`);
-  await fs.writeFile(fullPath, JSON.stringify(data, null, 2) + "\n", "utf-8");
-}
-
 export const ENTITIES = {
-  poble: { file: "poble", schema: pobleSchema, listSchema: null },
+  poble: { key: "poble", schema: pobleSchema, listSchema: null },
   estacions: {
-    file: "estacions",
+    key: "estacions",
     schema: estacioSchema,
     listSchema: estacionsSchema,
   },
   activitats: {
-    file: "activitats",
+    key: "activitats",
     schema: activitatSchema,
     listSchema: activitatsSchema,
   },
-  serveis: { file: "negocis", schema: negociSchema, listSchema: negocisSchema },
+  serveis: { key: "negocis", schema: negociSchema, listSchema: negocisSchema },
   anuncis: {
-    file: "anuncis",
+    key: "anuncis",
     schema: anunciSchema,
     listSchema: anuncisSchema,
   },
@@ -49,20 +36,37 @@ export const ENTITIES = {
 export type EntityKey = keyof typeof ENTITIES;
 export type CollectionKey = Exclude<EntityKey, "poble">;
 
+async function readContent(key: string): Promise<unknown> {
+  const { data, error } = await supabaseAdmin
+    .from("content")
+    .select("data")
+    .eq("key", key)
+    .maybeSingle();
+  if (error) throw error;
+  return data?.data ?? null;
+}
+
+async function writeContent(key: string, value: unknown): Promise<void> {
+  const { error } = await supabaseAdmin
+    .from("content")
+    .upsert({ key, data: value, updated_at: new Date().toISOString() });
+  if (error) throw error;
+}
+
 export async function readPoble() {
-  const data = await readFileJSON<unknown>("poble");
-  return pobleSchema.parse(data);
+  const raw = await readContent("poble");
+  return pobleSchema.parse(raw);
 }
 
 export async function writePoble(data: z.infer<typeof pobleSchema>) {
   const validated = pobleSchema.parse(data);
-  await writeFileJSON("poble", validated);
+  await writeContent("poble", validated);
 }
 
 export async function readCollection(key: CollectionKey) {
   const cfg = ENTITIES[key];
-  const data = await readFileJSON<unknown>(cfg.file);
-  return cfg.listSchema.parse(data);
+  const raw = (await readContent(cfg.key)) ?? [];
+  return cfg.listSchema.parse(raw);
 }
 
 export async function findItem(key: CollectionKey, slugOrId: string) {
@@ -98,7 +102,7 @@ export async function upsertItem(
   }
 
   cfg.listSchema.parse(items);
-  await writeFileJSON(cfg.file, items);
+  await writeContent(cfg.key, items);
 }
 
 export async function deleteItem(key: CollectionKey, slugOrId: string) {
@@ -111,5 +115,5 @@ export async function deleteItem(key: CollectionKey, slugOrId: string) {
     (it) => it.slug !== slugOrId && it.id !== slugOrId,
   );
   cfg.listSchema.parse(filtered);
-  await writeFileJSON(cfg.file, filtered);
+  await writeContent(cfg.key, filtered);
 }

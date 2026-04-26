@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { HeaderWindmill } from "./header-windmill";
 
 const NAV = [
   { label: "Poble", href: "#poble" },
@@ -16,6 +18,8 @@ const NAV = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const dark = pathname?.startsWith("/festa-major") ?? false;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -50,18 +54,26 @@ export function Header() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-[var(--ease-out-expo)]",
-        scrolled
-          ? "bg-bone/85 backdrop-blur-md border-b border-ink/5"
-          : "bg-transparent",
+        dark
+          ? scrolled
+            ? "bg-[#08182b]/85 backdrop-blur-md border-b border-white/10"
+            : "bg-gradient-to-b from-[#08182b]/70 to-transparent"
+          : scrolled
+            ? "bg-bone/85 backdrop-blur-md border-b border-ink/5"
+            : "bg-transparent",
       )}
     >
       <div className="mx-auto flex h-28 w-full items-center justify-between px-8 sm:px-12 lg:px-16 xl:px-20">
         <Link
           href="/"
-          className="font-display text-2xl tracking-tight text-ink"
+          className={cn(
+            "inline-flex items-center gap-3 font-display text-2xl tracking-tight",
+            dark ? "text-bone" : "text-ink",
+          )}
           aria-label="Inici"
         >
-          Segura
+          <span>Segura</span>
+          <HeaderWindmill dark={dark} />
         </Link>
 
         <nav
@@ -73,7 +85,12 @@ export function Header() {
               key={item.href}
               href={item.href}
               onClick={handleAnchorClick}
-              className="font-mono text-xs uppercase tracking-[0.18em] text-stone hover:text-ink transition-colors"
+              className={cn(
+                "font-mono text-xs uppercase tracking-[0.18em] transition-colors",
+                dark
+                  ? "text-bone/70 hover:text-bone"
+                  : "text-stone hover:text-ink",
+              )}
             >
               {item.label}
             </a>

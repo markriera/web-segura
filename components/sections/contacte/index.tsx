@@ -5,7 +5,6 @@ import { Container } from "@/components/ui/container";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { Reveal } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
 import type { Poble } from "@/types/content";
 
 export function ContacteSection({ poble }: { poble: Poble }) {
@@ -116,31 +115,35 @@ function Field({
 }
 
 function Map({ decimal }: { decimal: { lat: number; lon: number } }) {
+  const { lat, lon } = decimal;
+  const embedSrc = `https://www.google.com/maps?q=${lat},${lon}&hl=ca&z=15&output=embed`;
+  const linkHref = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
+
   return (
-    <div className="mt-10 relative aspect-square w-full max-w-sm rounded-sm border border-ink/10 bg-paper overflow-hidden">
-      <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full">
-        <g stroke="#8a9472" strokeWidth="0.4" fill="none" opacity="0.6">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <path
-              key={i}
-              d={`M0 ${20 + i * 14} Q50 ${10 + i * 14} 100 ${20 + i * 14} T200 ${20 + i * 14}`}
-            />
-          ))}
-        </g>
-        <motion.circle
-          cx={100}
-          cy={100}
-          r={4}
-          fill="#a0522d"
-          animate={{ scale: [1, 1.4, 1] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+    <figure className="mt-10 w-full max-w-sm">
+      <div className="relative aspect-square w-full overflow-hidden rounded-sm border border-ink/15 bg-paper shadow-sm">
+        <iframe
+          src={embedSrc}
+          title="Mapa de Segura"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="absolute inset-0 h-full w-full grayscale-[0.15] contrast-[0.92] saturate-[0.7]"
+          style={{ border: 0 }}
         />
-        <circle cx={100} cy={100} r={12} fill="none" stroke="#a0522d" strokeWidth="0.5" opacity="0.4" />
-      </svg>
-      <div className="absolute bottom-3 left-3 right-3 flex justify-between font-mono text-[10px] uppercase tracking-[0.18em] text-stone">
-        <span>{decimal.lat.toFixed(4)}°N</span>
-        <span>{decimal.lon.toFixed(4)}°E</span>
       </div>
-    </div>
+      <figcaption className="mt-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em] text-stone">
+        <span>
+          {lat.toFixed(4)}°N · {lon.toFixed(4)}°E
+        </span>
+        <a
+          href={linkHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline decoration-stone/40 hover:decoration-ink hover:text-ink transition-colors"
+        >
+          Obre al Maps ↗
+        </a>
+      </figcaption>
+    </figure>
   );
 }

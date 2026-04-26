@@ -41,6 +41,58 @@ interface EntityFormProps {
   submitLabel?: string;
 }
 
+function slugify(input: string): string {
+  return input
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+const CAT_MONTHS = [
+  "gener", "febrer", "març", "abril", "maig", "juny",
+  "juliol", "agost", "setembre", "octubre", "novembre", "desembre",
+];
+
+function isoToCatalanDate(iso: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  if (!m) return iso;
+  const month = CAT_MONTHS[parseInt(m[2]!, 10) - 1] ?? "";
+  const day = parseInt(m[3]!, 10);
+  const prefix = /^[aeiou]/i.test(month) ? "d'" : "de ";
+  return `${day} ${prefix}${month}`;
+}
+
+function prepareForSave(
+  data: Record<string, unknown>,
+  entity?: string,
+): Record<string, unknown> {
+  const out = { ...data };
+  // Auto-derive slug from nom for entities that use it
+  if (entity === "estacions" || entity === "activitats" || entity === "serveis") {
+    const nom = typeof out.nom === "string" ? out.nom : "";
+    const existingSlug = typeof out.slug === "string" ? out.slug : "";
+    if (!existingSlug) {
+      out.slug = slugify(nom);
+    }
+  }
+  // Auto-derive id from titol for anuncis
+  if (entity === "anuncis") {
+    const existingId = typeof out.id === "string" ? out.id : "";
+    if (!existingId) {
+      const titol = typeof out.titol === "string" ? out.titol : "";
+      const stamp = Date.now().toString(36);
+      out.id = `${slugify(titol) || "anunci"}-${stamp}`;
+    }
+  }
+  // Auto-derive visible 'data' from dataIso for activitats
+  if (entity === "activitats" && typeof out.dataIso === "string" && out.dataIso) {
+    out.data = isoToCatalanDate(out.dataIso);
+  }
+  return out;
+}
+
 function getValue(obj: Record<string, unknown>, path: string): unknown {
   return path.split(".").reduce<unknown>((acc, key) => {
     if (acc && typeof acc === "object") {
@@ -87,8 +139,9 @@ export function EntityForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const prepared = prepareForSave(data, entity);
     const fd = new FormData();
-    fd.set("__data", JSON.stringify(data));
+    fd.set("__data", JSON.stringify(prepared));
     if (entity === "poble") {
       startTransition(() => savePobleAction(fd));
     } else if (entity) {

@@ -88,23 +88,43 @@ export function ActivitatsSection({ activitats }: { activitats: Activitat[] }) {
                 }}
               >
                 <Link
-                  href={`/activitats/${act.slug}`}
+                  href={act.linkOverride ?? `/activitats/${act.slug}`}
+                  target={
+                    act.linkOverride && /^https?:\/\//.test(act.linkOverride)
+                      ? "_blank"
+                      : undefined
+                  }
+                  rel={
+                    act.linkOverride && /^https?:\/\//.test(act.linkOverride)
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
                   className="group block overflow-hidden rounded-sm bg-paper transition-transform duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-paper">
+                    {act.imatge && (
+                      <Image
+                        src={act.imatge}
+                        alt=""
+                        aria-hidden
+                        fill
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover blur-xl scale-110 opacity-60"
+                      />
+                    )}
                     <Image
-                      src="/images/placeholders/landscape.svg"
+                      src={act.imatge || "/images/placeholders/landscape.svg"}
                       alt={act.nom}
                       fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                      className="object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
+                      className="object-contain transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
                     />
                   </div>
                   <div className="p-6">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-rust">
+                    <span className="block font-display text-2xl sm:text-[1.75rem] leading-none tracking-tight text-rust">
                       {act.data}
                     </span>
-                    <h3 className="mt-3 font-display text-xl text-ink leading-tight">
+                    <h3 className="mt-4 font-display text-xl text-ink leading-tight">
                       {act.nom}
                     </h3>
                     <p className="mt-2 line-clamp-2 text-sm text-stone">

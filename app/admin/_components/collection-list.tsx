@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { DeleteButton } from "./delete-button";
+import { MoveButtons } from "./move-buttons";
 import type { CollectionKey } from "@/lib/admin/store";
 
 interface Item {
@@ -30,7 +31,7 @@ export function CollectionList({
 
   return (
     <ul className="space-y-3">
-      {items.map((item) => {
+      {items.map((item, idx) => {
         const key = (item.slug ?? item.id) as string;
         const title = item.nom ?? item.titol ?? key;
         const thumb = item.imatge ?? item.imatges?.[0];
@@ -39,6 +40,12 @@ export function CollectionList({
             key={key}
             className="flex items-center gap-5 rounded-md border-2 border-ink/15 bg-paper p-4 transition-colors hover:border-ink"
           >
+            <MoveButtons
+              entity={entity}
+              itemKey={key}
+              isFirst={idx === 0}
+              isLast={idx === items.length - 1}
+            />
             <div className="h-16 w-16 shrink-0 overflow-hidden rounded-md border border-ink/10 bg-bone">
               {thumb && (
                 /* eslint-disable-next-line @next/next/no-img-element */

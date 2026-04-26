@@ -15,7 +15,7 @@ export default async function EstacionsAdminPage({
   return (
     <div>
       <PageHeader
-        title="Estacions"
+        title="Localitzacions"
         kicker="Visita virtual"
         actions={
           <Link

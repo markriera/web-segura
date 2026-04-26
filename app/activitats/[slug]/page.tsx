@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -50,6 +50,7 @@ export default async function ActivitatPage({
   const { slug } = await params;
   const activitat = await getActivitat(slug);
   if (!activitat) notFound();
+  if (activitat.linkOverride) redirect(activitat.linkOverride);
 
   const url = `${SITE_URL}/activitats/${slug}`;
   const inscritsActuals = activitat.inscripcionsObertes
@@ -67,8 +68,10 @@ export default async function ActivitatPage({
         </Link>
 
         <header className="mt-8">
-          <SectionKicker>{activitat.data}</SectionKicker>
-          <h1 className="mt-4 font-display text-[clamp(2.5rem,2rem+3vw,4.5rem)] leading-[1] text-ink">
+          <span className="block font-display text-[clamp(2rem,1.5rem+2vw,3.25rem)] leading-none tracking-tight text-rust">
+            {activitat.data}
+          </span>
+          <h1 className="mt-5 font-display text-[clamp(2.5rem,2rem+3vw,4.5rem)] leading-[1] text-ink">
             {activitat.nom}
           </h1>
           {(activitat.hora || activitat.ubicacio) && (

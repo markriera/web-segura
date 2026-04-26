@@ -12,8 +12,11 @@ import {
   upsertItem,
   deleteItem,
   writePoble,
+  readCollection,
+  ENTITIES,
   type CollectionKey,
 } from "@/lib/admin/store";
+import { supabaseAdmin } from "@/lib/supabase";
 import { deleteInscripcio } from "@/lib/inscripcions";
 import { pobleSchema } from "@/lib/schemas";
 
@@ -66,6 +69,32 @@ export async function deleteInscripcioAction(formData: FormData) {
   revalidatePath(`/admin/activitats/${slug}/inscripcions`);
   revalidatePath(`/activitats/${slug}`);
   redirect(`/admin/activitats/${slug}/inscripcions?deleted=1`);
+}
+
+export async function moveItemAction(formData: FormData) {
+  await ensureAuth();
+  const entity = String(formData.get("__entity") ?? "") as CollectionKey;
+  const key = String(formData.get("__key") ?? "");
+  const dir = String(formData.get("__dir") ?? "");
+  const items = (await readCollection(entity)) as Array<{
+    slug?: string;
+    id?: string;
+  }>;
+  const idx = items.findIndex((it) => it.slug === key || it.id === key);
+  if (idx < 0) return;
+  const swap = dir === "up" ? idx - 1 : idx + 1;
+  if (swap < 0 || swap >= items.length) return;
+  [items[idx], items[swap]] = [items[swap]!, items[idx]!];
+
+  const cfg = ENTITIES[entity];
+  await supabaseAdmin.from("content").upsert({
+    key: cfg.key,
+    data: items,
+    updated_at: new Date().toISOString(),
+  });
+  revalidatePath("/", "layout");
+  revalidatePath("/[locale]", "layout");
+  revalidatePath(`/admin/${entity}`);
 }
 
 export async function deleteItemAction(formData: FormData) {

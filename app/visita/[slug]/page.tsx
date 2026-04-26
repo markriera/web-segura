@@ -46,7 +46,7 @@ export default async function EstacioPage({
 
         <header className="mt-8">
           <SectionKicker>
-            Estació {String(estacio.ordre).padStart(2, "0")}
+            Localització {String(estacio.ordre).padStart(2, "0")}
           </SectionKicker>
           <h1 className="mt-4 font-display text-[clamp(2.5rem,2rem+3vw,4.5rem)] leading-[1] text-ink">
             {estacio.nom}
@@ -68,9 +68,28 @@ export default async function EstacioPage({
         </div>
 
         <div className="mt-12 grid gap-12 lg:grid-cols-12">
-          <p className="lg:col-span-8 text-lg leading-relaxed text-ink">
-            {estacio.descripcio}
-          </p>
+          <div className="lg:col-span-8">
+            <p className="text-lg leading-relaxed text-ink">
+              {estacio.descripcio}
+            </p>
+            {estacio.font && (
+              <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-stone">
+                Font:{" "}
+                {estacio.fontUrl ? (
+                  <a
+                    href={estacio.fontUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline decoration-stone/40 hover:decoration-ink hover:text-ink transition-colors"
+                  >
+                    {estacio.font}
+                  </a>
+                ) : (
+                  estacio.font
+                )}
+              </p>
+            )}
+          </div>
           <dl className="lg:col-span-4 space-y-6 border-t border-ink/10 pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
             {estacio.coordenades && (
               <div>

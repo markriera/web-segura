@@ -14,7 +14,7 @@ const empty = {
   epoca: "primavera",
   descripcio: "",
   imatge: "/images/activitats/",
-  recurrent: true,
+  recurrent: false,
 };
 
 export default function NewActivitatPage() {

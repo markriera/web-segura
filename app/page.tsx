@@ -2,6 +2,7 @@ import { Hero } from "@/components/sections/hero";
 import { PobleSection } from "@/components/sections/poble";
 import { VisitaVirtual } from "@/components/sections/visita-virtual";
 import { ActivitatsSection } from "@/components/sections/activitats";
+import { FestaMajorBanner } from "@/components/sections/festa-major-banner";
 import { NegocisSection } from "@/components/sections/negocis";
 import { TrobadaDigital } from "@/components/sections/trobada-digital";
 import { ContacteSection } from "@/components/sections/contacte";
@@ -25,6 +26,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero poble={poble} />
+      <FestaMajorBanner />
       <PobleSection poble={poble} />
       <VisitaVirtual estacions={estacions} />
       <ActivitatsSection activitats={activitats} />

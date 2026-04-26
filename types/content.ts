@@ -55,6 +55,8 @@ export interface Activitat {
   descripcio: string;
   imatge: string;
   recurrent: boolean;
+  ordre?: number;
+  linkOverride?: string;
 }
 
 export interface Inscripcio {

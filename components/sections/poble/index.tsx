@@ -6,6 +6,7 @@ import { SectionKicker } from "@/components/ui/section-kicker";
 import { Reveal } from "@/components/ui/reveal";
 import { CountUp } from "@/components/animations/count-up";
 import { ParallaxImage } from "@/components/ui/parallax-image";
+import { DayNightSequence } from "@/components/animations/day-night-sequence";
 import { easeOutExpo } from "@/lib/animations";
 import type { Poble } from "@/types/content";
 
@@ -37,11 +38,13 @@ export function PobleSection({ poble }: { poble: Poble }) {
 
           <div className="lg:col-span-7">
             <Reveal>
-              <ParallaxImage
-                src="/images/poble/carrer-major.png"
+              <DayNightSequence
+                frames={[
+                  "/images/poble/dia-nit/1.jpg",
+                  "/images/poble/dia-nit/4.jpg",
+                ]}
                 alt={`Carrer del nucli antic de ${poble.nom}`}
-                className="aspect-[4/5] w-full rounded-sm"
-                ratio={0.2}
+                className="aspect-[4/5] w-full overflow-hidden rounded-sm bg-ink"
                 sizes="(min-width: 1024px) 55vw, 100vw"
               />
             </Reveal>

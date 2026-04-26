@@ -54,13 +54,6 @@ export const pobleFields: FieldDef[] = [
 ];
 
 export const estacioFields: FieldDef[] = [
-  {
-    name: "slug",
-    label: "Slug",
-    kind: "text",
-    required: true,
-    hint: "Identificador URL (sense espais ni accents)",
-  },
   { name: "ordre", label: "Ordre", kind: "number", required: true },
   { name: "nom", label: "Nom", kind: "text", required: true },
   { name: "subtitol", label: "Subtítol", kind: "text", required: true },
@@ -77,20 +70,13 @@ export const estacioFields: FieldDef[] = [
 ];
 
 export const activitatFields: FieldDef[] = [
-  { name: "slug", label: "Slug", kind: "text", required: true },
   { name: "nom", label: "Nom", kind: "text", required: true },
   {
     name: "dataIso",
-    label: "Data exacta",
+    label: "Data",
     kind: "date",
-    hint: "Tria la data al calendari (genera automàticament la data visible)",
-  },
-  {
-    name: "data",
-    label: "Data visible",
-    kind: "text",
     required: true,
-    hint: "Com es mostrarà al públic (ex: '15 de maig')",
+    hint: "Tria la data al calendari · es mostra com a '15 de maig'",
   },
   { name: "hora", label: "Hora", kind: "time", hint: "Opcional" },
   { name: "ubicacio", label: "Ubicació", kind: "text", hint: "Opcional" },
@@ -127,10 +113,15 @@ export const activitatFields: FieldDef[] = [
     hint: "0 o buit = sense límit",
   },
   { name: "recurrent", label: "Recurrent", kind: "boolean" },
+  {
+    name: "linkOverride",
+    label: "Enllaç extern (opcional)",
+    kind: "text",
+    hint: "Si s'omple, en clicar la targeta s'obre aquest URL en lloc del detall. Pot ser una pàgina externa o una ruta interna.",
+  },
 ];
 
 export const serveiFields: FieldDef[] = [
-  { name: "slug", label: "Slug", kind: "text", required: true },
   { name: "nom", label: "Nom", kind: "text", required: true },
   {
     name: "categoria",

@@ -6,7 +6,7 @@ import { LogoutButton } from "../_components/logout-button";
 const NAV = [
   { href: "/admin", label: "Inici" },
   { href: "/admin/poble", label: "Poble" },
-  { href: "/admin/estacions", label: "Estacions" },
+  { href: "/admin/estacions", label: "Localitzacions" },
   { href: "/admin/activitats", label: "Activitats" },
   { href: "/admin/serveis", label: "Serveis" },
   { href: "/admin/anuncis", label: "Anuncis" },
@@ -21,12 +21,12 @@ export default async function PanelLayout({
 
   return (
     <div className="flex min-h-screen bg-bone">
-      <aside className="w-72 shrink-0 border-r-2 border-ink/15 bg-paper px-7 py-10 flex flex-col">
+      <aside className="w-72 shrink-0 overflow-hidden border-r-2 border-ink/15 bg-paper px-7 py-10 flex flex-col">
         <Link href="/admin" className="block">
-          <span className="font-display text-3xl tracking-tight text-ink">
+          <span className="block font-display text-2xl leading-none tracking-tight text-ink">
             Segura
           </span>
-          <span className="block text-xs font-mono uppercase tracking-[0.18em] text-stone mt-2">
+          <span className="mt-2 block text-[10px] font-mono uppercase tracking-[0.18em] text-stone">
             Panell d&apos;administració
           </span>
         </Link>

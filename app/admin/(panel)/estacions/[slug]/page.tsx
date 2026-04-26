@@ -17,7 +17,7 @@ export default async function EditEstacioPage({
     <div>
       <PageHeader
         title={(item as { nom: string }).nom}
-        back={{ href: "/admin/estacions", label: "Estacions" }}
+        back={{ href: "/admin/estacions", label: "Localitzacions" }}
       />
       <EntityForm
         entity="estacions"

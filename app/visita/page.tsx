@@ -11,7 +11,7 @@ export default async function VisitaPage() {
     <Container size="xl" as="article" className="pt-32 pb-24">
       <SectionKicker>Visita virtual</SectionKicker>
       <h1 className="mt-4 max-w-3xl font-display text-[clamp(2.5rem,2rem+3vw,4.5rem)] leading-[1] text-ink">
-        Sis estacions per recórrer Segura
+        Sis localitzacions per recórrer Segura
       </h1>
 
       <ul className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -32,7 +32,7 @@ export default async function VisitaPage() {
               </div>
               <div className="p-6">
                 <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-rust">
-                  Estació {String(estacio.ordre).padStart(2, "0")}
+                  Localització {String(estacio.ordre).padStart(2, "0")}
                 </span>
                 <h2 className="mt-3 font-display text-xl text-ink">{estacio.nom}</h2>
                 <p className="mt-1 font-display italic text-sm text-stone">

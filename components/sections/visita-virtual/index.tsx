@@ -79,7 +79,7 @@ export function VisitaVirtual({ estacions }: { estacions: Estacio[] }) {
               id="visita-heading"
               className="mt-4 max-w-2xl font-display text-[clamp(2rem,1.5rem+2vw,3rem)] leading-[1] tracking-tight text-ink"
             >
-              <Reveal>Sis estacions per recórrer Segura</Reveal>
+              <Reveal>Sis localitzacions per recórrer Segura</Reveal>
             </h2>
           </div>
           <div className="hidden lg:flex items-center gap-6">
@@ -166,7 +166,11 @@ function ArrowButton({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      aria-label={direction === "prev" ? "Estació anterior" : "Estació següent"}
+      aria-label={
+        direction === "prev"
+          ? "Localització anterior"
+          : "Localització següent"
+      }
       className={cn(
         "flex h-12 w-12 items-center justify-center rounded-full border border-ink/15 bg-bone text-ink transition-all duration-300 ease-[var(--ease-out-expo)]",
         "hover:border-ink hover:bg-ink hover:text-bone",
@@ -226,7 +230,7 @@ function EstacioCard({
 
         <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
           <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-bone/70">
-            Estació {String(index + 1).padStart(2, "0")}
+            Localització {String(index + 1).padStart(2, "0")}
           </span>
           <h3 className="mt-3 font-display text-2xl sm:text-3xl text-bone leading-tight">
             {estacio.nom}
@@ -242,7 +246,7 @@ function EstacioCard({
             active ? "text-bone opacity-100" : "text-bone/0 opacity-0",
           )}
         >
-          Veure estació →
+          Veure localització →
         </div>
       </Link>
     </article>

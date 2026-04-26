@@ -17,8 +17,8 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       if (cancelled) return;
 
       const instance = new Lenis({
-        lerp: 0.1,
-        wheelMultiplier: 1,
+        lerp: 0.18,
+        wheelMultiplier: 1.15,
         smoothWheel: true,
       });
       lenis = instance;

@@ -14,7 +14,7 @@ const CARDS: { key: "poble" | "estacions" | "activitats" | "serveis" | "anuncis"
   },
   {
     key: "estacions",
-    label: "Estacions",
+    label: "Localitzacions",
     href: "/admin/estacions",
     description: "Visita virtual: punts del recorregut.",
   },
@@ -66,9 +66,11 @@ export default async function AdminDashboard() {
             href={c.href}
             className="group block rounded-md border-2 border-ink/15 bg-paper p-7 transition-all hover:-translate-y-0.5 hover:border-ink hover:shadow-md"
           >
-            <div className="flex items-baseline justify-between">
-              <h2 className="font-display text-2xl text-ink">{c.label}</h2>
-              <span className="rounded-full bg-ink px-3 py-1 font-mono text-xs font-semibold text-bone">
+            <div className="flex items-baseline justify-between gap-3">
+              <h2 className="min-w-0 font-display text-xl sm:text-2xl leading-tight text-ink break-words">
+                {c.label}
+              </h2>
+              <span className="shrink-0 rounded-full bg-ink px-3 py-1 font-mono text-xs font-semibold text-bone">
                 {counts[c.key]}
               </span>
             </div>

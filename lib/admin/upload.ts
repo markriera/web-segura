@@ -1,6 +1,6 @@
 import "server-only";
-import { promises as fs } from "node:fs";
 import path from "node:path";
+import { supabaseAdmin } from "@/lib/supabase";
 
 const ALLOWED_EXT = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
 const MAX_BYTES = 12 * 1024 * 1024;
@@ -13,6 +13,8 @@ const ALLOWED_FOLDERS = new Set([
   "poble",
 ]);
 
+const BUCKET = "images";
+
 function slugify(input: string): string {
   return input
     .toLowerCase()
@@ -21,6 +23,22 @@ function slugify(input: string): string {
     .replace(/[^a-z0-9.-]+/g, "-")
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "");
+}
+
+function contentType(ext: string): string {
+  switch (ext) {
+    case ".jpg":
+    case ".jpeg":
+      return "image/jpeg";
+    case ".png":
+      return "image/png";
+    case ".webp":
+      return "image/webp";
+    case ".avif":
+      return "image/avif";
+    default:
+      return "application/octet-stream";
+  }
 }
 
 export async function saveUploadedImage(
@@ -42,12 +60,20 @@ export async function saveUploadedImage(
   const base = slugify(path.basename(file.name, ext)) || "imatge";
   const stamp = Date.now().toString(36);
   const filename = `${base}-${stamp}${ext}`;
-
-  const targetDir = path.join(process.cwd(), "public", "images", folder);
-  await fs.mkdir(targetDir, { recursive: true });
+  const objectPath = `${folder}/${filename}`;
 
   const buffer = Buffer.from(await file.arrayBuffer());
-  await fs.writeFile(path.join(targetDir, filename), buffer);
 
-  return `/images/${folder}/${filename}`;
+  const { error } = await supabaseAdmin.storage
+    .from(BUCKET)
+    .upload(objectPath, buffer, {
+      contentType: contentType(ext),
+      cacheControl: "31536000",
+      upsert: false,
+    });
+
+  if (error) throw new Error(error.message);
+
+  const { data } = supabaseAdmin.storage.from(BUCKET).getPublicUrl(objectPath);
+  return data.publicUrl;
 }

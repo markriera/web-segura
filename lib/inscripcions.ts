@@ -1,30 +1,41 @@
 import "server-only";
-import { promises as fs } from "node:fs";
-import path from "node:path";
-import { inscripcionsSchema, inscripcioSchema } from "./schemas";
+import { supabaseAdmin } from "@/lib/supabase";
+import { inscripcioSchema } from "./schemas";
 import type { Inscripcio } from "@/types/content";
 
-const FILE = path.join(process.cwd(), "content", "ca", "inscripcions.json");
+type Row = {
+  id: string;
+  activitat_slug: string;
+  nom: string;
+  email: string;
+  telefon: string | null;
+  acompanyants: number;
+  comentaris: string | null;
+  creat_a: string;
+};
 
-async function readAll(): Promise<Inscripcio[]> {
-  try {
-    const raw = await fs.readFile(FILE, "utf-8");
-    return inscripcionsSchema.parse(JSON.parse(raw));
-  } catch (err) {
-    if ((err as NodeJS.ErrnoException).code === "ENOENT") return [];
-    throw err;
-  }
-}
-
-async function writeAll(items: Inscripcio[]): Promise<void> {
-  inscripcionsSchema.parse(items);
-  await fs.writeFile(FILE, JSON.stringify(items, null, 2) + "\n", "utf-8");
+function rowToInscripcio(r: Row): Inscripcio {
+  return {
+    id: r.id,
+    activitatSlug: r.activitat_slug,
+    nom: r.nom,
+    email: r.email,
+    telefon: r.telefon ?? undefined,
+    acompanyants: r.acompanyants,
+    comentari: r.comentaris ?? undefined,
+    creatA: r.creat_a,
+  };
 }
 
 export async function getInscripcions(activitatSlug?: string) {
-  const all = await readAll();
-  if (!activitatSlug) return all;
-  return all.filter((i) => i.activitatSlug === activitatSlug);
+  let q = supabaseAdmin
+    .from("inscripcions")
+    .select("*")
+    .order("creat_a", { ascending: false });
+  if (activitatSlug) q = q.eq("activitat_slug", activitatSlug);
+  const { data, error } = await q;
+  if (error) throw error;
+  return (data as Row[]).map(rowToInscripcio);
 }
 
 export async function countInscripcions(activitatSlug: string) {
@@ -39,13 +50,24 @@ export async function addInscripcio(input: Omit<Inscripcio, "id" | "creatA">) {
     creatA: new Date().toISOString(),
   };
   inscripcioSchema.parse(item);
-  const all = await readAll();
-  all.push(item);
-  await writeAll(all);
+  const { error } = await supabaseAdmin.from("inscripcions").insert({
+    id: item.id,
+    activitat_slug: item.activitatSlug,
+    nom: item.nom,
+    email: item.email,
+    telefon: item.telefon ?? null,
+    acompanyants: item.acompanyants,
+    comentaris: item.comentari ?? null,
+    creat_a: item.creatA,
+  });
+  if (error) throw error;
   return item;
 }
 
 export async function deleteInscripcio(id: string) {
-  const all = await readAll();
-  await writeAll(all.filter((i) => i.id !== id));
+  const { error } = await supabaseAdmin
+    .from("inscripcions")
+    .delete()
+    .eq("id", id);
+  if (error) throw error;
 }

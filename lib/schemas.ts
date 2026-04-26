@@ -36,6 +36,8 @@ export const estacioSchema = z.object({
   altitud: z.number().optional(),
   imatge: z.string(),
   ordre: z.number(),
+  font: z.string().optional(),
+  fontUrl: z.string().optional(),
 });
 
 const optionalString = z.preprocess(
@@ -61,6 +63,8 @@ export const activitatSchema = z.object({
   descripcio: z.string(),
   imatge: z.string(),
   recurrent: z.boolean(),
+  ordre: z.number().optional(),
+  linkOverride: z.string().optional(),
 });
 
 export const negociSchema = z.object({

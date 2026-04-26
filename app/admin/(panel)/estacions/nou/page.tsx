@@ -17,8 +17,8 @@ export default function NewEstacioPage() {
   return (
     <div>
       <PageHeader
-        title="Nova estació"
-        back={{ href: "/admin/estacions", label: "Estacions" }}
+        title="Nova localització"
+        back={{ href: "/admin/estacions", label: "Localitzacions" }}
       />
       <EntityForm
         entity="estacions"
