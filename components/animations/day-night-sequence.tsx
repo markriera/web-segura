@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 interface Props {
-  frames: [string, string] | string[];
+  frames: string[];
   alt: string;
   className?: string;
   sizes?: string;
@@ -18,7 +18,8 @@ export function DayNightSequence({
   sizes = "(min-width: 1024px) 55vw, 100vw",
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
-  const [day, night] = [frames[0], frames[frames.length - 1]];
+  const day = frames[0]!;
+  const night = frames[frames.length - 1]!;
 
   const { scrollYProgress } = useScroll({
     target: ref,
