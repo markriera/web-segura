@@ -1,0 +1,56 @@
+{
+  "nom": "Segura",
+  "subtitol": "Un llogaret de la Conca de Barberà",
+  "habitants": 28,
+  "habitantsNota": "Dada del 2005 — pendent actualització",
+  "altitud": 794,
+  "altitudCastell": 801,
+  "coordenades": {
+    "lat": "41°32'39.80\"N",
+    "lon": "1°15'54.90\"E",
+    "decimal": {
+      "lat": 41.5444,
+      "lon": 1.2653
+    }
+  },
+  "municipi": "Savallà del Comtat",
+  "comarca": "Conca de Barberà",
+  "provincia": "Tarragona",
+  "distanciaCapMunicipi": "3 km",
+  "historia": [
+    {
+      "titol": "Els orígens",
+      "text": "Segura es formà a redós del seu castell, documentat per primera vegada el 1123, quan Berenguer Sendred el deixà al seu fill Arnau. El nucli antic, articulat pels carrers del Cementiri, Major i del Castell, va veure créixer les cases fins al segle XIX al voltant d'aquesta fortalesa medieval."
+    },
+    {
+      "titol": "El llinatge senyorial",
+      "text": "Al segle XII el castell pertanyia als Cervera, després passà per mans dels Guardiolada i, a mitjans del segle XIII, fou cedit a l'orde de l'Hospital, que en comprà la jurisdicció total el 1380."
+    },
+    {
+      "titol": "El Cafè de Segura",
+      "text": "Al carrer Major s'alça l'antiga residència dels Masades, avui coneguda com el Cafè de Segura. Un edifici senyorial d'àmplies dimensions bastit al segle XVII, amb la dovella central de la portalada datada el 1629."
+    }
+  ],
+  "fitesHistoriques": [
+    {
+      "any": "1123",
+      "fet": "Primera menció documental del castell"
+    },
+    {
+      "any": "1380",
+      "fet": "L'orde de l'Hospital n'adquireix la jurisdicció"
+    },
+    {
+      "any": "1629",
+      "fet": "Construcció del Cafè de Segura"
+    },
+    {
+      "any": "s. XVIII",
+      "fet": "Església barroca de l'Assumpta"
+    },
+    {
+      "any": "1896",
+      "fet": "Construcció del cementiri actual"
+    }
+  ]
+}

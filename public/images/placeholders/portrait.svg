@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice">
+  <rect width="800" height="1000" fill="#ebe4d6"/>
+  <g stroke="#8a9472" stroke-width="1.5" fill="none" opacity="0.55">
+    <rect x="220" y="280" width="360" height="520" rx="2"/>
+    <path d="M220 380 L580 380"/>
+    <path d="M400 280 L400 800"/>
+  </g>
+  <text x="400" y="900" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#6b6660" opacity="0.7" font-style="italic">Imatge pendent</text>
+</svg>

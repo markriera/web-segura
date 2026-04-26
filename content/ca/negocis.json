@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "PLACEHOLDER-casa-rural-1",
+    "nom": "[PLACEHOLDER: Nom casa rural 1]",
+    "categoria": "allotjament",
+    "descripcio": "[PLACEHOLDER]",
+    "telefon": "[PLACEHOLDER]",
+    "email": "[PLACEHOLDER]",
+    "web": "[PLACEHOLDER]",
+    "imatges": ["/images/negocis/casa-retir.webp"]
+  },
+  {
+    "slug": "PLACEHOLDER-casa-rural-2",
+    "nom": "[PLACEHOLDER: Nom casa rural 2]",
+    "categoria": "allotjament",
+    "descripcio": "[PLACEHOLDER]",
+    "telefon": "[PLACEHOLDER]",
+    "email": "[PLACEHOLDER]",
+    "web": "[PLACEHOLDER]",
+    "imatges": ["/images/negocis/placeholder-2.jpg"]
+  }
+]

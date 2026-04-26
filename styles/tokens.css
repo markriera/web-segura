@@ -1,0 +1,49 @@
+:root {
+  /* Colors */
+  --color-ink: #1a1814;
+  --color-bone: #f4efe6;
+  --color-paper: #ebe4d6;
+  --color-moss: #3d4a2a;
+  --color-sage: #8a9472;
+  --color-earth: #8b6f47;
+  --color-rust: #a0522d;
+  --color-stone: #6b6660;
+
+  /* Typography */
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* Type scale (fluid) */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.85rem + 0.2vw, 1rem);
+  --text-base: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  --text-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --text-xl: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
+  --text-2xl: clamp(2.5rem, 2rem + 2vw, 3.75rem);
+  --text-3xl: clamp(3.5rem, 2.5rem + 4vw, 6rem);
+  --text-display: clamp(4rem, 3rem + 8vw, 12rem);
+
+  /* Spacing (8pt scale) */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+  --space-12: 6rem;
+  --space-16: 8rem;
+  --space-24: 12rem;
+  --space-32: 16rem;
+
+  /* Easings */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-out-soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Durations */
+  --duration-fast: 200ms;
+  --duration-base: 400ms;
+  --duration-slow: 800ms;
+  --duration-reveal: 1200ms;
+}

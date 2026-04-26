@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "castell",
+    "nom": "El Castell de Segura",
+    "subtitol": "Documentat des de 1123",
+    "descripcio": "Al cim del tossal s'alcen les restes d'una fortalesa medieval que va donar nom al poble. Molt malmès però lliurement accessible, és el millor mirador sobre la vall del barranc de Segura.",
+    "coordenades": "41°32'39\"N · 1°15'54\"E",
+    "altitud": 801,
+    "imatge": "/images/estacions/castell.jpg",
+    "ordre": 1
+  },
+  {
+    "slug": "esglesia-assumpta",
+    "nom": "Església de l'Assumpta",
+    "subtitol": "Barroca, segle XVIII",
+    "descripcio": "Singular per la seva planta de creu grega, l'església actual va substituir l'antiga romànica que s'alçava al turó del castell. Les pedres de l'antiga van servir per bastir-la.",
+    "imatge": "/images/estacions/esglesia-assumpta.png",
+    "ordre": 2
+  },
+  {
+    "slug": "el-cafe-de-segura",
+    "nom": "El Cafè de Segura",
+    "subtitol": "Casa senyorial de 1629",
+    "descripcio": "L'antiga residència dels Masades és l'edifici més emblemàtic del carrer Major. La dovella central de la portalada principal porta gravada la data de la seva construcció.",
+    "imatge": "/images/estacions/el-cafe-de-segura.jpg",
+    "ordre": 3
+  },
+  {
+    "slug": "cementiri",
+    "nom": "El Cementiri",
+    "subtitol": "Esteles funeràries (1896)",
+    "descripcio": "Construït el 1896 sobre el solar de l'antiga església romànica, el cementiri conserva un conjunt notable d'esteles funeràries i és un lloc de memòria del poble.",
+    "imatge": "/images/estacions/cementiri.jpg",
+    "ordre": 4
+  },
+  {
+    "slug": "nucli-antic",
+    "nom": "El Nucli Antic",
+    "subtitol": "Carrers del Cementiri, Major i del Castell",
+    "descripcio": "Tres carrers articulen el cor històric de Segura, on les cases es van construir entre l'edat mitjana i el segle XIX, amb la pedra calcària de la zona com a protagonista.",
+    "imatge": "/images/estacions/nucli-antic.png",
+    "ordre": 5
+  },
+  {
+    "slug": "mirador",
+    "nom": "Mirador sobre la vall",
+    "subtitol": "Vall del Riu Corb",
+    "descripcio": "Des dels afores del poble s'obre la vista sobre la vall que el barranc de Segura excava cap al Riu Corb, amb els altiplans segarrencs al fons.",
+    "imatge": "/images/estacions/mirador.jpg",
+    "ordre": 6
+  }
+]

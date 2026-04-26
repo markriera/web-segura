@@ -1,0 +1,31 @@
+[
+  {
+    "slug": "sant-isidre",
+    "nom": "Sant Isidre",
+    "data": "15 de maig",
+    "capacitat": 120,
+    "inscripcionsObertes": true,
+    "epoca": "primavera",
+    "descripcio": "Festivitat del patró dels llauradors. Una tradició profundament arrelada al poble, on encara avui es manté la celebració vinculada al món rural i al cicle agrícola.",
+    "imatge": "/images/activitats/sant-isidre.jpg",
+    "recurrent": true
+  },
+  {
+    "slug": "cinema-fresca",
+    "nom": "Cinema a la fresca",
+    "data": "15 de maig",
+    "epoca": "estiu",
+    "descripcio": "Jornades de cinema tots els dimarts al Cafè de Segura",
+    "imatge": "/images/activitats/cinema-moeqkzk4.png",
+    "recurrent": true
+  },
+  {
+    "slug": "PLACEHOLDER-festa-major",
+    "nom": "[PLACEHOLDER: Festa Major]",
+    "data": "[PLACEHOLDER]",
+    "epoca": "estiu",
+    "descripcio": "[PLACEHOLDER: confirmar si Segura té festa major pròpia o se celebra la de Savallà el primer diumenge d'octubre]",
+    "imatge": "/images/activitats/placeholder-festa.jpg",
+    "recurrent": true
+  }
+]
