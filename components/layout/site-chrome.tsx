@@ -8,8 +8,10 @@ import { SmoothScrollProvider } from "@/components/animations/smooth-scroll-prov
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
+  const isBare =
+    pathname?.startsWith("/pista/") || pathname?.startsWith("/segura-room/");
 
-  if (isAdmin) return <>{children}</>;
+  if (isAdmin || isBare) return <>{children}</>;
 
   return (
     <SmoothScrollProvider>
