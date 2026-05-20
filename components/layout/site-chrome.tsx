@@ -9,7 +9,9 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
   const isBare =
-    pathname?.startsWith("/pista/") || pathname?.startsWith("/segura-room/");
+    pathname?.startsWith("/pista/") ||
+    pathname?.startsWith("/segura-room/") ||
+    pathname === "/joc";
 
   if (isAdmin || isBare) return <>{children}</>;
 
