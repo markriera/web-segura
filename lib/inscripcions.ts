@@ -28,14 +28,19 @@ function rowToInscripcio(r: Row): Inscripcio {
 }
 
 export async function getInscripcions(activitatSlug?: string) {
-  let q = supabaseAdmin
-    .from("inscripcions")
-    .select("*")
-    .order("creat_a", { ascending: false });
-  if (activitatSlug) q = q.eq("activitat_slug", activitatSlug);
-  const { data, error } = await q;
-  if (error) throw error;
-  return (data as Row[]).map(rowToInscripcio);
+  try {
+    let q = supabaseAdmin
+      .from("inscripcions")
+      .select("*")
+      .order("creat_a", { ascending: false });
+    if (activitatSlug) q = q.eq("activitat_slug", activitatSlug);
+    const { data, error } = await q;
+    if (error) throw error;
+    return (data as Row[]).map(rowToInscripcio);
+  } catch (err) {
+    console.warn("[inscripcions] getInscripcions failed:", err);
+    return [] as Inscripcio[];
+  }
 }
 
 export async function countInscripcions(activitatSlug: string) {
