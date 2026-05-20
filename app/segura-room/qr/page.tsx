@@ -6,7 +6,8 @@ export const metadata = {
 };
 
 const PISTES = [
-  { id: "1", label: "Pista 1 — 16 escales" },
+  { id: "1", label: "Pista 1" },
+  { id: "2", label: "Pista 2" },
 ] as const;
 
 function getBaseUrl() {

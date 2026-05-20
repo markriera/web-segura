@@ -4,7 +4,11 @@ import { notFound } from "next/navigation";
 const PISTES: Record<string, { src: string; alt: string }> = {
   "1": {
     src: "/images/segura-room/pista-1.jpg",
-    alt: "Pista 1 del Segura Room — pugeu 16 escales",
+    alt: "Pista 1 del Segura Room",
+  },
+  "2": {
+    src: "/images/segura-room/pista-2.jpg",
+    alt: "Pista 2 del Segura Room",
   },
 };
 
